@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct {
     void *next;
@@ -7,12 +8,44 @@ typedef struct {
 
 Node *head = NULL;
 
+Node *addNode(int data) {
+    Node *new = malloc(sizeof(Node));
+    // if list is empty
+    if (head == NULL) {
+        new = malloc(sizeof(Node));
+        if (new == NULL)
+            return NULL;
+        new->data = data;
+        new->next = NULL;
+        head = new;
+    } else {
+        new = malloc(sizeof(Node));
+        if (new == NULL)
+            return NULL;
+        new->data = data;
+        new->next = head;
+        head = new;
+    }
+    return new;
+}
+
+void printList() {
+    Node *current = head;
+    while (current != NULL) {
+        printf("%d->", current->data);
+        current = current->next;
+    }
+    printf("\n");
+    return;
+}
+
 void printMenu() {
     printf("You have the following options:\n");
     printf("\t1. Add a node to the list.\n");
     printf("\t2. Remove a node from the list.\n");
     printf("\t3. Insert a node to the list.\n");
-    printf("\t4. Quit.\n"); 
+    printf("\t4. Print the list.\n");
+    printf("\t5. Quit.\n"); 
 }
 
 int main (int argc, char **argv) {
@@ -24,6 +57,9 @@ int main (int argc, char **argv) {
             switch(option) {
                 case 1:
                     // add
+                    printf("What data should I insert?");
+                    scanf("%d", &option);
+                    Node *new = addNode(option);
                     break;
                 case 2:
                     // remove
@@ -32,6 +68,9 @@ int main (int argc, char **argv) {
                     // insert
                     break;
                 case 4:
+                    printList();
+                    break;
+                case 5:
                     // quit
                     break;
             }
