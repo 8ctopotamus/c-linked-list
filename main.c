@@ -29,11 +29,11 @@ Node *addNode(int data) {
     return new;
 }
 
-void removeNode(int data) {
+int removeNode(int data) {
     Node *prev = head;
     Node *current = head;
     while(current != NULL) {
-        if (current->data = data) {
+        if (current->data == data) {
             // if current node is list head
             if (current == head) {
                 head = current->next;
@@ -90,31 +90,38 @@ void printMenu() {
 
 int main (int argc, char **argv) {
     int option = -1;
-    while(option != 4) {
+    int arg1 = 0;
+    int arg2 = 0;
+    while(option != 5) {
         printMenu();
-        int selected_option = scanf("%d", $option);
-        if (selected_option == 1 && option > 0 && option < 4) {
+        int selected_option = scanf("%d", &option);
+        if (selected_option == 1 && option > 0 && option < 5) {
             switch(option) {
                 case 1: // add
-                    printf("What data should I insert?");
+                    printf("What data should I add?\n");
                     scanf("%d", &option);
                     Node *new = addNode(option);
                     break;
                 case 2: // remove
-                    printf("What data should I remove");
-                    scanf("%d", &option);
-                    int success = removeNode(option);
+                    printf("What data should I remove?\n");
+                    scanf("%d", &arg1);
+                    int success = removeNode(arg1);
                     if (!success)
-                        printf("Element not found")
+                        printf("Element not found");
                     break; 
                 case 3: // insert
-                    
+                    printf("What data should I insert?\n");
+                    scanf("%d", &arg1);
+                    printf("What position?\n");
+                    scanf("%d", &arg2);
+                    new = insertNode(arg1, arg2);
+                    if (new == NULL)
+                        printf("Failed to insert into list\n");
                     break;
                 case 4: // print
                     printList();
                     break;
                 case 5: // quit
-                    
                     break;
             }
         }
